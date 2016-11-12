@@ -1,4 +1,4 @@
-<p>
-  weather works!
-  {{ conditions.current_observation | json }}
-</p>
+<button (click)="getHourlyForecast()">Get Data</button>
+<div>cat2</div>
+<app-hourly-forecast *ngFor="let hourlyForecast of hourlyForecasts" [forecast]="hourlyForecast"></app-hourly-forecast>
+

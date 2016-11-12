@@ -27,4 +27,17 @@ export class WeatherService {
       });
   }
 
+  public getHourlyForecast(): Observable<any> {
+    const url: string = 'http://api.wunderground.com/api/'+this.apiKey+'/hourly/q/CA/San_Francisco.json';
+
+    return this.http.get(url)
+      .map((response: Response) => {
+        if (response.status === 204) {
+          return undefined;
+        } else {
+          return response.json();
+        }
+      });
+  }
+
 }
