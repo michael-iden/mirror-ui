@@ -9,10 +9,11 @@ import { WeatherService } from "./weather.service";
 })
 export class WeatherComponent implements OnInit {
 
+
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
-    this.weatherService.getConditions();
+    console.log(this.weatherService.getConditions());
   }
 
 }
