@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { WeatherService } from "./weather.service";
 
 @Component({
@@ -9,11 +9,19 @@ import { WeatherService } from "./weather.service";
 })
 export class WeatherComponent implements OnInit {
 
+  private conditions: any;
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
-    console.log(this.weatherService.getConditions());
+    this.conditions = this.weatherService.getConditions().subscribe((data) => {
+        this.conditions = data;
+        console.log(data);
+      },
+      (err) => {
+        console.error('weather api returned an error');
+      });
   }
+
 
 }

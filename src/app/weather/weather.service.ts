@@ -13,18 +13,18 @@ export class WeatherService {
   constructor(private http: Http) {
   }
 
-  public getConditions() : Observable<any>  {
+  public getConditions(): Observable<any>  {
 
-    console.log('http://api.wunderground.com/api/'+this.apiKey+'/conditions/q/CA/San_Francisco.json');
+    const url: string = 'http://api.wunderground.com/api/'+this.apiKey+'/conditions/q/CA/San_Francisco.json';
 
-    return this.http.get('http://api.wunderground.com/api/'+this.apiKey+'/conditions/q/CA/San_Francisco.json')
-      .map((response: Response) => response.json())
-      .catch(this.handleError);
-  }
-
-  private handleError (error: Response | any) : Observable<any> {
-    console.log(error); // log this somewhere and format the message well for devs
-    return Observable.throw(error); // our opportunity customize this error
+    return this.http.get(url)
+      .map((response: Response) => {
+        if (response.status === 204) {
+          return undefined;
+        } else {
+          return response.json();
+        }
+      });
   }
 
 }
